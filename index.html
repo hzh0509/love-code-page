@@ -1,5 +1,3 @@
-// ✅ 前端 HTML + JS 修改版，支持消息上下文 messageHistory
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -73,6 +71,14 @@
     const input = document.getElementById("userInput");
     const messageHistory = [];
 
+    // 暗号固定在 sessionStorage
+    let selectedCode = sessionStorage.getItem("selectedCode");
+    if (!selectedCode) {
+      const allCodes = ["我爱你", "亲亲抱抱", "你是我的唯一", "你是我的宝贝", "超喜欢你", "陪你到老", "和我在一起吧"];
+      selectedCode = allCodes[Math.floor(Math.random() * allCodes.length)];
+      sessionStorage.setItem("selectedCode", selectedCode);
+    }
+
     function addMessage(text, sender) {
       const msg = document.createElement("div");
       msg.className = `message ${sender}`;
@@ -86,7 +92,7 @@
         const response = await fetch('https://love-code-api.vercel.app/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: messageHistory })
+          body: JSON.stringify({ messages: messageHistory, code: selectedCode })
         });
 
         if (!response.ok) {
@@ -124,6 +130,10 @@
       const welcome = "欢迎来到暗号制造机！今天我准备了一个小小暗号，你能猜到吗？";
       addMessage(welcome, "bot");
       messageHistory.push({ role: 'assistant', content: welcome });
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
     });
   </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>暗号制造机</title>
+  <title>寻宝小精灵</title>
   <style>
     body {
       font-family: sans-serif;
@@ -71,13 +71,8 @@
     const input = document.getElementById("userInput");
     const messageHistory = [];
 
-    // 暗号固定在 sessionStorage
-    let selectedCode = sessionStorage.getItem("selectedCode");
-    if (!selectedCode) {
-      const allCodes = ["我爱你", "亲亲抱抱", "你是我的唯一", "你是我的宝贝", "超喜欢你", "陪你到老", "和我在一起吧"];
-      selectedCode = allCodes[Math.floor(Math.random() * allCodes.length)];
-      sessionStorage.setItem("selectedCode", selectedCode);
-    }
+    // 宝藏密码固定为当前测试的 code
+    const selectedCode = '89203416';  // 可根据后端替换
 
     function addMessage(text, sender) {
       const msg = document.createElement("div");
@@ -104,7 +99,7 @@
         return data.content;
       } catch (error) {
         console.error("请求出错：", error);
-        return "哎呀，我的服务器出了点小问题…请稍后再试试！\n错误信息: " + error.message;
+        return "哎呀，小精灵被服务器绊了一跤…请稍后再试试～💦\n错误信息: " + error.message;
       }
     }
 
@@ -117,7 +112,7 @@
 
       const thinkingMsg = document.createElement("div");
       thinkingMsg.className = "message bot";
-      thinkingMsg.innerText = "思考中...";
+      thinkingMsg.innerText = "咕噜咕噜…让我想想～";
       chat.appendChild(thinkingMsg);
       chat.scrollTop = chat.scrollHeight;
 
@@ -127,7 +122,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const welcome = "欢迎来到暗号制造机！今天我准备了一个小小暗号，你能猜到吗？";
+      const welcome = "你好呀，小宝贝！我是你的寻宝小精灵～这次的宝藏藏得可深啦，要一关一关猜出来才行哦 ✨ 准备好了吗？";
       addMessage(welcome, "bot");
       messageHistory.push({ role: 'assistant', content: welcome });
     });

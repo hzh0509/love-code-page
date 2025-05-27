@@ -22,19 +22,33 @@
       flex-direction: column;
     }
     .message {
+      display: flex;
+      align-items: flex-start;
       margin-bottom: 0.75rem;
-      max-width: 70%;
+      max-width: 80%;
+    }
+    .message img.avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    .message.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .message.user img.avatar {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+    .message .text {
       padding: 0.5rem 1rem;
       border-radius: 1rem;
+      background-color: #fddde6;
       white-space: pre-wrap;
     }
-    .bot {
-      background-color: #fddde6;
-      align-self: flex-start;
-    }
-    .user {
+    .message.user .text {
       background-color: #cbe7ff;
-      align-self: flex-end;
     }
     .input-container {
       display: flex;
@@ -70,14 +84,25 @@
     const chat = document.getElementById("chat");
     const input = document.getElementById("userInput");
     const messageHistory = [];
+    const selectedCode = '89203416';
 
-    // 宝藏密码固定为当前测试的 code
-    const selectedCode = '89203416';  // 可根据后端替换
+    const botAvatar = "https://upload.wikimedia.org/wikipedia/en/7/70/Hello_Kitty_Character_Picture.png";
+    const userAvatar = "https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/Kuromi_sanrio.png/220px-Kuromi_sanrio.png";
 
     function addMessage(text, sender) {
       const msg = document.createElement("div");
       msg.className = `message ${sender}`;
-      msg.innerText = text;
+
+      const avatar = document.createElement("img");
+      avatar.className = "avatar";
+      avatar.src = sender === "user" ? userAvatar : botAvatar;
+
+      const content = document.createElement("div");
+      content.className = "text";
+      content.innerText = text;
+
+      msg.appendChild(avatar);
+      msg.appendChild(content);
       chat.appendChild(msg);
       chat.scrollTop = chat.scrollHeight;
     }
@@ -112,17 +137,24 @@
 
       const thinkingMsg = document.createElement("div");
       thinkingMsg.className = "message bot";
-      thinkingMsg.innerText = "咕噜咕噜…让我想想～";
+      const avatar = document.createElement("img");
+      avatar.className = "avatar";
+      avatar.src = botAvatar;
+      const content = document.createElement("div");
+      content.className = "text";
+      content.innerText = "咕噜咕噜…让我想想～";
+      thinkingMsg.appendChild(avatar);
+      thinkingMsg.appendChild(content);
       chat.appendChild(thinkingMsg);
       chat.scrollTop = chat.scrollHeight;
 
       const reply = await fetchGPTResponse();
-      thinkingMsg.innerText = reply;
+      content.innerText = reply;
       messageHistory.push({ role: 'assistant', content: reply });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const welcome = "你好呀，小宝贝！我是你的寻宝小精灵～这次的宝藏藏得可深啦，要一关一关猜出来才行哦 ✨ 准备好了吗？";
+      const welcome = "你好呀，小宝贝！我是你的寻宝小精灵～有人为你准备了一份神秘的宝藏，让我们一起把它找出来吧！ ✨ 准备好了吗？";
       addMessage(welcome, "bot");
       messageHistory.push({ role: 'assistant', content: welcome });
     });

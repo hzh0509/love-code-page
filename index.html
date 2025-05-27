@@ -32,6 +32,7 @@
       height: 32px;
       border-radius: 50%;
       margin-right: 0.5rem;
+      display: block;
     }
     .message.user {
       align-self: flex-end;
@@ -95,7 +96,13 @@
 
       const avatar = document.createElement("img");
       avatar.className = "avatar";
+      avatar.alt = "头像";
       avatar.src = sender === "user" ? userAvatar : botAvatar;
+      avatar.onerror = () => {
+        avatar.src = sender === "user"
+          ? "https://pics0.baidu.com/feed/0b55b319ebc4b745486a5b20a808ac1a8b82150f.jpeg"
+          : "https://pics0.baidu.com/feed/b03533fa828ba61e91fba20a26c02507314e59fb.jpeg";
+      };
 
       const content = document.createElement("div");
       content.className = "text";
@@ -140,6 +147,10 @@
       const avatar = document.createElement("img");
       avatar.className = "avatar";
       avatar.src = botAvatar;
+      avatar.alt = "头像";
+      avatar.onerror = () => {
+        avatar.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Hello_Kitty.svg/100px-Hello_Kitty.svg.png";
+      };
       const content = document.createElement("div");
       content.className = "text";
       content.innerText = "咕噜咕噜…让我想想～";

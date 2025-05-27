@@ -87,8 +87,8 @@
     const messageHistory = [];
     const selectedCode = '89203416';
 
-    const botAvatar = "https://pics0.baidu.com/feed/b03533fa828ba61e91fba20a26c02507314e59fb.jpeg";
-    const userAvatar = "https://pics0.baidu.com/feed/0b55b319ebc4b745486a5b20a808ac1a8b82150f.jpeg";
+    const botAvatar = "https://i.postimg.cc/hgzkJ1FV/kitty.jpg";
+    const userAvatar = "https://i.postimg.cc/Smq3v0nG/kuromi.jpg";
 
     function addMessage(text, sender) {
       const msg = document.createElement("div");
@@ -100,8 +100,8 @@
       avatar.src = sender === "user" ? userAvatar : botAvatar;
       avatar.onerror = () => {
         avatar.src = sender === "user"
-          ? "https://pics0.baidu.com/feed/0b55b319ebc4b745486a5b20a808ac1a8b82150f.jpeg"
-          : "https://pics0.baidu.com/feed/b03533fa828ba61e91fba20a26c02507314e59fb.jpeg";
+          ? "https://i.postimg.cc/Smq3v0nG/kuromi.jpg"
+          : "https://i.postimg.cc/hgzkJ1FV/kitty.jpg";
       };
 
       const content = document.createElement("div");
@@ -149,7 +149,7 @@
       avatar.src = botAvatar;
       avatar.alt = "头像";
       avatar.onerror = () => {
-        avatar.src = "https://pics0.baidu.com/feed/b03533fa828ba61e91fba20a26c02507314e59fb.jpeg";
+        avatar.src = "https://i.postimg.cc/hgzkJ1FV/kitty.jpg";
       };
       const content = document.createElement("div");
       content.className = "text";

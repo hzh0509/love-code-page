@@ -56,10 +56,22 @@
     }
 
     .message.user {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  margin-left: auto; 
+}
 
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 60px 1rem 90px;
+  height: calc(100vh - 140px); /* 减去顶部 + 输入区域 */
+}
+
+    .message.user .text {
+  margin-left: auto;  /* 让文字块也靠右 */
+}
+    
     .message.user img.avatar {
       margin-left: 0.5rem;
       margin-right: 0;
@@ -206,6 +218,13 @@
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") sendMessage();
     });
+
+    window.addEventListener("resize", () => {
+  setTimeout(() => {
+    chat.scrollTop = chat.scrollHeight;
+  }, 50);
+});
+    
   </script>
 </body>
 </html>

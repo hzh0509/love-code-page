@@ -174,7 +174,7 @@
 
     async function fetchGPTResponse() {
       try {
-        const response = await fetch('https://love-code-api.vercel.app/api/chat', {
+        const response = await fetch('https://api.forlovelycc.xyz/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ messages: messageHistory, code: selectedCode })

@@ -38,9 +38,10 @@ html, body {
 }
 
 .chat-container {
+  flex: 1;
   overflow-y: auto;
-  padding: 60px 1rem 90px;
-  transition: height 0.2s ease;
+  padding: 1rem;
+  height: calc(var(--vh, 1vh) * 100 - 130px); /* 130 = header + input 宽度 */
 }
 
 .input-container {

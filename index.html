@@ -224,22 +224,6 @@ window.addEventListener('orientationchange', setRealVh);
 document.addEventListener('DOMContentLoaded', setRealVh);
 
 
-function adjustChatHeight() {
-  const chat = document.querySelector(".chat-container");
-  const header = document.querySelector(".header");
-  const input = document.querySelector(".input-container");
-
-  const viewport = window.visualViewport;
-  const safeHeight = viewport.height - header.offsetHeight - input.offsetHeight;
-
-  chat.style.height = `${safeHeight}px`;
-  chat.scrollTop = chat.scrollHeight;
-}
-
-window.addEventListener('resize', adjustChatHeight);
-window.visualViewport?.addEventListener('resize', adjustChatHeight);
-document.addEventListener('DOMContentLoaded', adjustChatHeight);
-    
   </script>
 </body>
 </html>

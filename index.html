@@ -38,10 +38,9 @@ html, body {
 }
 
 .chat-container {
-  flex: 1;
   overflow-y: auto;
-  padding: 1rem;
-  height: calc(var(--vh, 1vh) * 100 - 130px); /* 130 = header + input 宽度 */
+  padding: 60px 1rem 90px;
+  transition: height 0.2s ease;
 }
 
 .input-container {
@@ -224,14 +223,22 @@ window.addEventListener('resize', setRealVh);
 window.addEventListener('orientationchange', setRealVh);
 document.addEventListener('DOMContentLoaded', setRealVh);
 
-    function setVhUnit() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  <script>
+function adjustChatHeight() {
+  const chat = document.querySelector(".chat-container");
+  const header = document.querySelector(".header");
+  const input = document.querySelector(".input-container");
+
+  const viewport = window.visualViewport;
+  const safeHeight = viewport.height - header.offsetHeight - input.offsetHeight;
+
+  chat.style.height = `${safeHeight}px`;
+  chat.scrollTop = chat.scrollHeight;
 }
-window.addEventListener('resize', setVhUnit);
-window.addEventListener('orientationchange', setVhUnit);
-window.addEventListener('load', setVhUnit);
-document.addEventListener('DOMContentLoaded', setVhUnit);
+
+window.addEventListener('resize', adjustChatHeight);
+window.visualViewport?.addEventListener('resize', adjustChatHeight);
+document.addEventListener('DOMContentLoaded', adjustChatHeight);
     
   </script>
 </body>
